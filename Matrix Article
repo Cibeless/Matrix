@@ -1,0 +1,25 @@
+#Artigo marriz
+
+#criando um caminho
+caminho <- "C:/..."
+
+geral <- read.csv(file.path(caminho, "file_geral50.csv"), stringsAsFactors = FALSE)
+EEF <- read.csv(file.path(caminho, "file_EEF50.csv"), stringsAsFactors = FALSE)
+DEEEAB <- read.csv(file.path(caminho, "file_DEEEAB50.csv"), stringsAsFactors = FALSE)
+
+scopus_total <- rbind(file_geral, file_EEF, file_DEEEAB)
+
+duplicados <- file_total[duplicated(file_total), ]
+
+print(duplicados)
+
+# Removendo duplicados
+file_total_sem_duplicados <- scopus_total[!duplicated(file_total), ]
+
+# Contando o número de duplicados removidos
+numero_duplicados <- sum(duplicated(file_total))
+print(paste(" removidos:", numero_duplicados))
+
+
+# Salvando o dataframe consolidado em um novo arquivo CSV
+write.csv(file_total, file.path(caminho, "file_total.csv"), row.names = FALSE)
