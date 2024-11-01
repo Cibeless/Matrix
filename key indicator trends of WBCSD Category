@@ -1,0 +1,8 @@
+#WBCSD Category distribution 
+
+plt.figure(figsize=(10, 6))
+plt.barh(wbcsd_category_counts.index, wbcsd_category_counts.values)
+plt.title("Trends of Key Indicators by WBCSD Category")
+plt.xlabel("Count of Indicators")
+plt.ylabel("WBCSD Category")
+plt.show()
