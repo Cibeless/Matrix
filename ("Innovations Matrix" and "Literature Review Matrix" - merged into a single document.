@@ -1,0 +1,29 @@
+from PyPDF2 import PdfReader, PdfWriter
+
+# P Innovations Matrix.
+file_innovations = "/mnt/data/Matriz - Final - _Innovations Matrix.pdf"
+
+# Literature review Matrix
+file_literature_review = "/mnt/data/Matriz - Final - _Literature review Matrix.pdf"
+
+# PdfReader for both files
+reader_innovations = PdfReader(file_innovations)
+reader_literature_review = PdfReader(file_literature_review)
+
+# IPdfWriter to create the merged document
+writer = PdfWriter()
+
+# Add all pages from Innovations Matrix
+for page in reader_innovations.pages:
+    writer.add_page(page)
+
+# Add all pages from Literature Review Matrix
+for page in reader_literature_review.pages:
+    writer.add_page(page)
+# Output file path
+output_path = "/mnt/data/Combined_Matrix_Document.pdf"
+# Write out the combined PDF document
+with open(output_path, "wb") as output_pdf:
+    writer.write(output_pdf)
+
+output_path
