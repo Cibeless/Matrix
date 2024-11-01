@@ -1,0 +1,21 @@
+import matplotlib.pyplot as plt
+
+# Count occurrences by "Sustainable Competitiveness" and "WBCSD Category" to analyze key trends
+sustainable_competitiveness_counts = df_combined['Sustainable Competitiveness'].value_counts()
+wbcsd_category_counts = df_combined['WBCSD Category'].value_counts()
+
+# Plotting the Sustainable Competitiveness distribution
+plt.figure(figsize=(10, 6))
+plt.barh(sustainable_competitiveness_counts.index, sustainable_competitiveness_counts.values)
+plt.title("Indicator Trends by Sustainable Competitiveness")
+plt.xlabel("Count of Indicators")
+plt.ylabel("Sustainable Competitiveness")
+plt.show()
+
+# Plotting the WBCSD Category distribution
+plt.figure(figsize=(10, 6))
+plt.barh(wbcsd_category_counts.index, wbcsd_category_counts.values)
+plt.title("Indicator Trends by WBCSD Category")
+plt.xlabel("Count of Indicators")
+plt.ylabel("WBCSD Category")
+plt.show()
