@@ -1,0 +1,26 @@
+import pandas as pd
+import os
+
+
+file_path = r"C:\Users\Cibele C\Documents\VineWine2\code_py_Matriz\Sustainable_Comp.xlsx"
+df = pd.read_excel(file_path)
+df.columns = df.columns.str.strip()
+print("Column names:", df.columns)
+
+# Group indicators in foccus with Sustainable_Comp category
+grouped = df.groupby('Sustainable_Comp')['Indicator'].apply(list)
+
+
+output_dir = r"C:\Users\Cibele C\PUC MINAS\Matriz Final -Code git"
+output_file = os.path.join(output_dir, "Sust_Comp_In.xlsx")
+os.makedirs(output_dir, exist_ok=True)
+
+# Save each category i
+with pd.ExcelWriter(output_file) as writer:
+    for category, indicators in grouped.items():
+        # Convert the indicators to a DataFrame
+        indicators_df = pd.DataFrame(indicators, columns=['Indicator'])
+        # Write each category to a separate sheet
+        indicators_df.to_excel(writer, sheet_name=category[:31], index=False)  # Excel sheet names are limited to 31 characters
+
+print(f"The categorized data has been saved to: {output_file}")
