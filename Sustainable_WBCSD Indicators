@@ -1,0 +1,24 @@
+import pandas as pd
+import os
+
+file_path = r"C:\Users\Cibele C\Documents\VineWine2\code_py_Matriz\Sustainable_WBCSD.xlsx"
+df = pd.read_excel(file_path)
+
+# Group indicators by WBCSD
+grouped = df.groupby('WBCSD')['Indicator'].apply(list)
+#in this case is not a dataframe yet so is ineed to convert in data --> Convert the grouped data into a DataFrame for saving
+grouped_df = grouped.reset_index()
+grouped_df.columns = ['WBCSD', 'Indicators']  # Rename columns for clarity
+
+# save in the current working directory
+output_file = "Sustainable_WBCSD_Grouped.xlsx"
+
+# Save the grouped data to a in execl xlsx  cada categoria em uma aba
+with pd.ExcelWriter(output_file) as writer:
+    for index, row in grouped_df.iterrows():
+        # Each category (WBCSD) will be a separate sheet
+        category = row['WBCSD']
+        indicators = pd.DataFrame(row['Indicators'], columns=['Indicator'])
+        indicators.to_excel(writer, sheet_name=category[:31], index=False)  # Excel sheet names are limited to 31 characters
+
+print(f"The grouped data has been saved to the current working directory as: {output_file}")
